@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactDom from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 
@@ -120,5 +121,43 @@ function Student(props) {
     </div>
   )
 }
+
+
+// Not JSX, using React.createElement
+// const result = React.createElement('h1', {}, 'Hello React World!');
+
+// Using JSX - (JavaScript Syntax Extension)
+// Can be used variable expression in {...}, not statement
+const ouput = (
+  <div>
+      {/* Attribute in react, not like a html attribute because it is JSX */}
+      <h1 className="heading">Hello React World!</h1>
+      <label htmlFor="name">Name</label>
+      <p>This is p</p>
+      <p>1 + 1</p>
+      <p>{1 + 1}</p>
+      <img src="" />
+  </div>
+  );
+  // Rendering
+  ReactDom.render(ouput, document.getElementById('root'));
+  
+  
+  // Components - 2 types (functional and class based)
+  // Rendering some code by function (functional component)
+  // class based component (old way, most used way)
+  const Output = () => {
+      return (
+          <div>
+              <h1 className="heading">Hello React World!</h1>
+              <label htmlFor="name">Name</label>
+              <p>From functional component</p>
+              <img src="" />
+          </div>
+      )
+  }
+  ReactDom.render(<Output />, document.getElementById('root'));
+  
+
 
 export default App;
