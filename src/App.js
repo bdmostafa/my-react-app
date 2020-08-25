@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactDom from 'react-dom';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -18,10 +17,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Counter></Counter>
+        <MovieCounter></MovieCounter>
         <Users></Users>
         <ul>
           {
-            products.map(product => <li> {product.name} </li>)
+            products.map(product => <li> {product.name} - {product.price}</li>)
           }
         </ul>
 
@@ -44,19 +44,40 @@ function App() {
 
 // State (React Hook)==============================
 function Counter() {
-  const [count, setCount] = useState(1);
+  // const [first, second] = ['abc', 'def']; // destructure
+  const [count, setCount] = useState(1); // 'count' is a value and 'setCount' is a function
   // const handleIncrease = () => setCount(count + 1);
   return (
     <div>
       <h2>Count: {count}</h2>
       <button onClick={() => setCount(count - 1)}>Decrease</button>
       <button onClick={() => setCount(count + 1)}>Increase</button>
+      <br/>
+      <br/>
     </div>
   )
-
 }
 
-// Components ============================
+function MovieCounter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <button onClick={()=> setCount(count + 1)}>Add Movie</button>
+      <h2>Number of movies: {count}</h2>
+      <CountGame movies={count}></CountGame>
+      <CountGame movies={count + 1}></CountGame>
+      <CountGame movies={count - 1}></CountGame>
+      <CountGame movies={count + 10}></CountGame>
+      <CountGame movies={count - 10}></CountGame>
+    </div>
+  )
+}
+
+function CountGame(props) {
+return <h4>Movies I have enjoyed most: {props.movies}</h4>
+}
+
+// Components (functional) ============================
 function Users() {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -64,7 +85,6 @@ function Users() {
       .then(res => res.json())
       .then(data => setUsers(data))
     // return () => {
-
     // }
   }, [])
   return (
@@ -83,6 +103,7 @@ function Users() {
   )
 }
 
+// Using props
 function Product(props) {
   console.log(props)
   // Object destructuring
@@ -161,3 +182,11 @@ const ouput = (
 
 
 export default App;
+
+// Topics covered (terminology)
+// React internals
+// Virtual DOM
+// Diff algorithm
+// Rerender
+// Virtual machine
+// React Fiber Engine (reconciliation)
